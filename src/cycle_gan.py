@@ -3,13 +3,12 @@ from random import random
 import tensorflow as tf
 from matplotlib import pyplot
 from tensorflow.keras.layers import Input, Conv2D, LeakyReLU, ReLU, Concatenate, Conv2DTranspose, Activation
-from tensorflow.python.keras import Model
-from tensorflow.python.keras.optimizers import Adam
-from numpy import load
-from tensorflow.python.ops.init_ops import RandomNormal
-from tensorflow.python.ops.numpy_ops import asarray
-from tensorflow.python.ops.numpy_ops.np_random import randint
+from tensorflow.keras.initializers import RandomNormal
+from tensorflow.keras import Model
+from tensorflow.keras.optimizers import Adam
+from numpy import load, asarray
 from tensorflow_addons.layers import InstanceNormalization
+from numpy.random import randint
 
 
 def discriminator(shape):
