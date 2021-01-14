@@ -8,6 +8,7 @@ from tensorflow.keras import Model
 from tensorflow.keras.optimizers import Adam
 from numpy import load, asarray
 from tensorflow_addons.layers import InstanceNormalization
+from random import random
 from numpy.random import randint
 
 
