@@ -25,7 +25,6 @@ from tensorflow.keras.optimizers.schedules import ExponentialDecay
 
 def transfer_style(nb_epochs, content, style, style_layer_names, content_layer_name, name):
     """
-
     :param nb_epochs: How many epochs
     :param content: content image
     :param style: style image
