@@ -13,8 +13,8 @@ Le rapport du projet dans le fichier [rapport.pdf](https://github.com/Gab1i/visi
   - Neural_Style_Transfer_Demo.ipynb est une version préliminaire de démonstration de l'algorithme de Gaty
   - Unsupervised Transfer Style.ipynb est une version non fonctionnelle d'un algorithme que nous trouvions intéressant à implémanter mais que nous n'avons pas eu le temps de terminer.
 - Le dossier src contient les sources en python que nous avons développé tout au long du projet (certains codes développé dans ces fichiers ne sont pas fonctionnels)
-  - Cycle_gan_full.py
-  - Cycle_gan_perso.py
+  - Cycle_gan_full.py est une version issue du repository https://github.com/keras-team/keras-io/blob/master/examples/generative/. C'est celle qui a été utilisée pour les tests
+  - Cycle_gan_perso.py est la version que nous avons tenté de développer. Elle souffre de problèmes, mais nous n'avons pas eu le temps de déterminer lesquels. Nous avons préféré effectuer nos tests sur d'autres implémentations
   - CycleGanModel.py, est une version issue de [Cycle Gan Tutorial with Keras](https://machinelearningmastery.com/cyclegan-tutorial-with-keras/) modifiée en tant que classe héritant de la class Model de tensorflow.keras
   - StyleTransferModel.py, est une version issue de [mlhandbook](https://github.com/bpesquet/mlhandbook) modifiée en tant que classe héritant de la class Model de tensorflow.keras
   - Utils.py contient un ensemble de fonctions utiles

@@ -1,3 +1,7 @@
+#PERSONAL IDEA: MULTIPLY BY 1/DISCRIMINATION (to be sure that it's always a decisive criteria) (if !=0 OF COURSE)
+#We could also try to move those weights between 2 epochs (maybe there's a faster way to converge, due to different gradient leading to stronger slopes ?) 
+
+
 """
 Title: CycleGAN
 Author: [A_K_Nain](https://twitter.com/A_K_Nain)
@@ -44,7 +48,7 @@ In this example, we will be using the
 dataset.
 """
 
-# Load the horse-zebra dataset using tensorflow-datasets.
+# Load the monet-photo dataset using tensorflow-datasets.
 dataset, _ = tfds.load("cycle_gan/monet2photo", with_info=True, as_supervised=True)
 train_horses, train_zebras = dataset["trainA"], dataset["trainB"]
 test_horses, test_zebras = dataset["testA"], dataset["testB"]
@@ -389,8 +393,8 @@ class CycleGan(keras.Model):
         generator_F,
         discriminator_X,
         discriminator_Y,
-        lambda_cycle=10.0,
-        lambda_identity=0.5,
+        lambda_cycle=10.0, # 10.0
+        lambda_identity=0.5, # 0.5
     ):
         super(CycleGan, self).__init__()
         self.gen_G = generator_G
@@ -481,8 +485,8 @@ class CycleGan(keras.Model):
             )
 
             # Total generator loss
-            total_loss_G = gen_G_loss + cycle_loss_G + id_loss_G
-            total_loss_F = gen_F_loss + cycle_loss_F + id_loss_F
+            total_loss_G = (gen_G_loss) * ( cycle_loss_G + id_loss_G )
+            total_loss_F = (gen_F_loss) * ( cycle_loss_F + id_loss_F )
 
             # Discriminator loss
             disc_X_loss = self.discriminator_loss_fn(disc_real_x, disc_fake_x)
@@ -575,9 +579,13 @@ def discriminator_loss_fn(real, fake):
 
 
 # Create cycle gan model
+
+
 cycle_gan_model = CycleGan(
     generator_G=gen_G, generator_F=gen_F, discriminator_X=disc_X, discriminator_Y=disc_Y
-)
+    )
+print("Model created successfully")
+
 
 # Compile the model
 cycle_gan_model.compile(
@@ -590,16 +598,23 @@ cycle_gan_model.compile(
 )
 # Callbacks
 plotter = GANMonitor()
-checkpoint_filepath = "./model_checkpoints/cyclegan_checkpoints.{epoch:03d}"
+checkpoint_filepath = "/content/drive/MyDrive/Vision/Cycle_Gan_checkpoints_and_images/Modified_weigths_2/model_checkpoints/cyclegan_checkpoints.{epoch:03d}"
 model_checkpoint_callback = keras.callbacks.ModelCheckpoint(
     filepath=checkpoint_filepath
-)
+    )
 
+try:
+    weight_file = "/content/drive/MyDrive/Vision/Cycle_Gan_checkpoints_and_images/Modified_weigths_2/model_checkpoints/cyclegan_checkpoints.030"
+    cycle_gan_model.load_weights(weight_file).expect_partial()
+    print("Model loaded successfully")
+except:
+    pass
+    
 # Here we will train the model for just one epoch as each epoch takes around
 # 7 minutes on a single P100 backed machine.
 cycle_gan_model.fit(
     tf.data.Dataset.zip((train_horses, train_zebras)),
-    epochs=1,
+    epochs=30,
     callbacks=[plotter, model_checkpoint_callback],
 )
 
